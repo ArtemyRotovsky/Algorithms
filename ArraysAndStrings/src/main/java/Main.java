@@ -10,6 +10,9 @@ public class Main {
         System.out.println("----- checkPermutation -----");
         System.out.println("checkPermutation(abbc, bbca): " + checkPermutation("abbc", "bbca"));
         System.out.println("checkPermutation(abbc, aabc): " + checkPermutation("abbc", "aabc"));
+
+        System.out.println("----- URLify -----");
+        System.out.println("URLify(\"Mr John Smith    \", 13): " + URLify("Mr John Smith    ".toCharArray(), 13));
     }
 
     /*
@@ -74,4 +77,42 @@ public class Main {
 
         return true;
     }
+
+    /*
+    * URLify: Write a method to replace all spaces in a string with '%20'. You may assume that the string
+                has sufficient space at the end to hold the additional characters, and that you are given the "true"
+                length of the string. (Note: If implementing in Java, please use a character array so that you can
+                perform this operation in place.)
+                EXAMPLE
+                Input: "Mr John Smith ", 13
+                Output: "Mr%20John%20Smith"
+    * */
+    private static String URLify(char[] s, int effectiveLength) {
+
+        int spaceCount = 0;
+        for (int i = 0; i < effectiveLength; i++) {
+            if (s[i] == ' ') {
+                spaceCount++;
+            }
+        }
+
+        int requiredLength = effectiveLength + 2 * spaceCount; // not 3 because a space takes 1 slot already
+        int index = requiredLength - 1;
+
+        for (int i = effectiveLength - 1; i >= 0 ; i--) {
+            if (s[i] == ' ') {
+                s[index] = '0';
+                s[index - 1] = '2';
+                s[index - 2] = '%';
+                index -= 3;
+            } else {
+                s[index] = s[i];
+                index--;
+            }
+        }
+
+        return String.valueOf(s);
+    }
+
+
 }
