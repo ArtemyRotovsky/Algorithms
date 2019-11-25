@@ -13,6 +13,11 @@ public class Main {
 
         System.out.println("----- URLify -----");
         System.out.println("URLify(\"Mr John Smith    \", 13): " + URLify("Mr John Smith    ".toCharArray(), 13));
+
+        System.out.println("----- isPalindromPremutation -----");
+        System.out.println("isPalindromPremutation(Tact Coa): " + isPalindromPremutation("Tact Coa"));
+        System.out.println("isPalindromPremutation(Tactcasda Coa): " + isPalindromPremutation("Tactcasda Coa"));
+
     }
 
     /*
@@ -114,5 +119,44 @@ public class Main {
         return String.valueOf(s);
     }
 
+    /*
+    * Palindrome Permutation: Given a string, write a function to check if it is a permutation of a palindrome.
+                A palindrome is a word or phrase that is the same forwards and backwards. A permutation
+                is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
+                1.5
+                1.6
+                EXAMPLE
+                Input: Tact Coa
+                Output: True (permutations: "taco cat", "atco eta", etc.)
+    * */
+    private static boolean isPalindromPremutation(String s) {
+
+        int[] charset = new int[256];
+
+        for (int i = 0; i < s.length(); i++) {
+
+            int intCh = Character.getNumericValue(s.charAt(i)) - Character.getNumericValue('a');
+
+            if (intCh < 0) {
+                continue;
+            }
+
+            if (charset[intCh] > 0) {
+                charset[intCh]--;
+            } else {
+                charset[intCh]++;
+            }
+        }
+
+        int counter = 0;
+        for (int i = 0; i < s.length(); i++) {
+            counter += charset[i];
+            if (counter > 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }
