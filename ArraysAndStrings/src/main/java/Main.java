@@ -26,6 +26,13 @@ public class Main {
         System.out.println("isOneAwayEdit(pale, ale): " + isOneAwayEdit("pale", "ale"));
         System.out.println("isOneAwayEdit(ale, akes): " + isOneAwayEdit("ale", "akes"));
 
+        System.out.println("----- compress -----");
+        System.out.println("compress(aabcccccaaa): " + compress("aabcccccaaa"));
+        System.out.println("compress(abc): " + compress("abc"));
+        System.out.println("compress(abcabbbbbbb): " + compress("abcabbbbbbb"));
+
+
+
     }
 
     /*
@@ -201,6 +208,29 @@ public class Main {
         }
 
         return true;
+    }
+
+    /*
+    * String Compression: Implement a method to perform basic string compression using the counts
+                of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the
+                "compressed" string would not become smaller than the original string, your method should return
+                the original string. You can assume the string has only uppercase and lowercase letters (a - z).
+    * */
+    private static String compress(String s) {
+        StringBuilder compressed = new StringBuilder();
+
+        int counter = 0;
+        for (int i = 0; i < s.length(); i++) {
+            counter++;
+            char curChar = s.charAt(i);
+            if ((i + 1) >= s.length() || curChar != s.charAt(i + 1)) {
+                compressed.append(curChar);
+                compressed.append(counter);
+                counter = 0;
+            }
+        }
+
+        return s.length() > compressed.length() ? compressed.toString() : s;
     }
 
 
