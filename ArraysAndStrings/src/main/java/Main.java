@@ -18,6 +18,14 @@ public class Main {
         System.out.println("isPalindromPremutation(Tact Coa): " + isPalindromPremutation("Tact Coa"));
         System.out.println("isPalindromPremutation(Tactcasda Coa): " + isPalindromPremutation("Tactcasda Coa"));
 
+        System.out.println("----- isOneAwayEdit -----");
+        System.out.println("isOneAwayEdit(pale, ple): " + isOneAwayEdit("pale", "ple"));
+        System.out.println("isOneAwayEdit(pales, pale): " + isOneAwayEdit("pales", "pale"));
+        System.out.println("isOneAwayEdit(pale, bale): " + isOneAwayEdit("pale", "bale"));
+        System.out.println("isOneAwayEdit(pale, bake): " + isOneAwayEdit("pale", "bake"));
+        System.out.println("isOneAwayEdit(pale, ale): " + isOneAwayEdit("pale", "ale"));
+        System.out.println("isOneAwayEdit(ale, akes): " + isOneAwayEdit("ale", "akes"));
+
     }
 
     /*
@@ -158,5 +166,42 @@ public class Main {
 
         return true;
     }
+
+    /*
+    * One Away: There are three types of edits that can be performed on strings: insert a character,
+                remove a character, or replace a character. Given two strings, write a function to check if they are
+                one edit (or zero edits) away.
+                EXAMPLE
+                pale, ple -> true
+                pales, pale -> true
+                pale, bale -> true
+                pale, bake -> false
+    * */
+    private static boolean isOneAwayEdit(String s, String t) {
+        int diffCounter = 0;
+        int index1 = 0, index2 = 0;
+
+        String shortStr = s.length() < t.length() ? s : t;
+        String longStr = s.length() < t.length() ? t : s;
+
+        while (index2 < longStr.length() && index1 < shortStr.length()) {
+            char c1 = shortStr.charAt(index1);
+            char c2 = longStr.charAt(index2);
+
+            if (c1 == c2) {
+                index1++; index2++;
+                continue;
+            } else {
+                diffCounter++;
+                if (shortStr.length() == longStr.length()) index1++;
+            }
+            index2++;
+
+            if (diffCounter > 1) return false;
+        }
+
+        return true;
+    }
+
 
 }
