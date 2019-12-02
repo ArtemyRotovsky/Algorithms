@@ -36,12 +36,19 @@ public class Main {
         int[][] matrix = {
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
-                {9, 10, 11, 12},
+                {9, 0, 11, 12},
                 {13, 14, 15, 16}
         };
-        System.out.println("rotateMatrix(int[][] matrix)");
         rotateMatrix(matrix);
 
+        int[][] matrix2 = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 0, 11, 12},
+                {13, 14, 15, 16}
+        };
+        System.out.println("----- zerifyMatrix -----");
+        zerifyMatrix(matrix2);
 
     }
 
@@ -275,12 +282,57 @@ public class Main {
         }
 
         for (int i = 0; i < n; i++) {
-            System.out.println();
             for (int j = 0; j < n; j++) {
                 System.out.print(matrix[i][j] + ", ");
             }
+            System.out.println();
         }
     }
 
+    /*
+    * Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and
+                column are set to 0.
+    * */
+    private static void zerifyMatrix(int[][] matrix) {
+        boolean[] rows = new boolean[matrix.length];
+        boolean[] cols = new boolean[matrix[0].length];
+
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                if (matrix[i][j] == 0) {
+                    rows[i] = true;
+                    cols[j] = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < rows.length; i++) {
+            if (rows[i]) zerifyRow(matrix, i);
+        }
+
+        for (int i = 0; i < cols.length; i++) {
+            if (cols[i]) zerifyCol(matrix, i);
+        }
+
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                System.out.print(matrix[i][j] + ", ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    private static void zerifyRow(int[][] matrix, int row) {
+        for (int j = 0; j < matrix.length; j++) {
+            matrix[row][j] = 0;
+        }
+    }
+
+    private static void zerifyCol(int[][] matrix, int col) {
+        for (int j = 0; j < matrix[0].length; j++) {
+            matrix[j][col] = 0;
+        }
+    }
 
 }
